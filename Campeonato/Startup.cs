@@ -1,4 +1,4 @@
-using Data.Context;
+using CrossCutting.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +22,18 @@ namespace Campeonato
         public void ConfigureServices(IServiceCollection services)
         {
 
+            
+
+            ConfigureService.ConfigureDependeciesService(services);
+            ConfigureRepository.ConfigureDependeciesRepository(services);
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Campeonato", Version = "v1" });
             });
 
-            services.AddDbContext<MyContext>(new ContextFactory().CreateDbContext());
+
 
         }
 

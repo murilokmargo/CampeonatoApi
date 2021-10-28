@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos;
+using Domain.Entities;
 using Domain.Interfaces.Services.Time;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -56,7 +57,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TimeEntity time)
+        public async Task<ActionResult> Post([FromBody] TimeDtoCreate time)
         {
             if (!ModelState.IsValid)
             {
@@ -83,7 +84,7 @@ namespace Application.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] TimeEntity time)
+        public async Task<ActionResult> Put([FromBody] TimeDtoUpdate time)
         {
             if (!ModelState.IsValid)
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Dtos
 {
-    public class TimeDto
+    public class TimeDtoUpdateResult
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }

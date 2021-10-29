@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Domain.Interfaces.Services.Campeonato
         Task<CampeonatoEntity> Post(CampeonatoEntity campeonato);
         Task<CampeonatoEntity> Put(CampeonatoEntity campeonato);
         Task<bool> Delete(Guid id);
+        Task<CampeonatoDto> ObterCampeonato();
     }
 }

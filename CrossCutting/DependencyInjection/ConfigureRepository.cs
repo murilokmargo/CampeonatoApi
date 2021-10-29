@@ -16,8 +16,9 @@ namespace CrossCutting.DependencyInjection
         public static void ConfigureDependeciesRepository(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            serviceCollection.AddScoped<ICampeonatoRepository, CampeonatoRepository>();
 
-            serviceCollection.AddDbContext<MyContext>(options => options.UseSqlServer("Server=localhost,1433;Database=CampDB;User ID=sa;Password=Test*123"));
+            serviceCollection.AddDbContext<MyContext>(options => options.UseSqlServer("Server=localhost;Database=CampDB;User ID=sa;Password=Test*123"));
         }
     }
 }

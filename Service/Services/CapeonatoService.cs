@@ -13,48 +13,22 @@ namespace Service.Services
     public class CampeonatoService : ICampeonatoService
     {
 
-        private ICampeonatoRepository _repository;
         private readonly IRepository<TimeEntity> _timeRepository;
 
-        public CampeonatoService(ICampeonatoRepository repository, IRepository<TimeEntity> timeRepository)
+        public CampeonatoService(IRepository<TimeEntity> timeRepository)
         {
-            _repository = repository;
             _timeRepository = timeRepository;
-        }
-
-
-        public async Task<bool> Delete(Guid id)
-        {
-            return await _repository.DeleteAsync(id);
-        }
-
-        public async Task<CampeonatoEntity> Get(Guid id)
-        {
-            return await _repository.SelectAsync(id);
-        }
-
-        public async Task<IEnumerable<CampeonatoEntity>> GetAll()
-        {
-            return await _repository.SelectAsync();
-        }
-
-        public async Task<CampeonatoEntity> Post(CampeonatoEntity campeonato)
-        {
-            return await _repository.InsertAsync(campeonato);
-        }
-
-        public async Task<CampeonatoEntity> Put(CampeonatoEntity campeonato)
-        {
-            return await _repository.UpdatetAsync(campeonato);
         }
 
         public async Task<CampeonatoDto> ObterCampeonato()
         {
             var listTimes = await _timeRepository.SelectAsync();
+            if (listTimes.Count() < 3 )
+            {
+                return null;
+            }
 
             var result = CalculaCampeonato(listTimes);
-
-
             return result;
         }
 

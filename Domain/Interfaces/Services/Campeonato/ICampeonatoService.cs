@@ -10,11 +10,6 @@ namespace Domain.Interfaces.Services.Campeonato
 {
     public interface ICampeonatoService
     {
-        Task<CampeonatoEntity> Get(Guid id);
-        Task<IEnumerable<CampeonatoEntity>> GetAll();
-        Task<CampeonatoEntity> Post(CampeonatoEntity campeonato);
-        Task<CampeonatoEntity> Put(CampeonatoEntity campeonato);
-        Task<bool> Delete(Guid id);
         Task<CampeonatoDto> ObterCampeonato();
     }
 }

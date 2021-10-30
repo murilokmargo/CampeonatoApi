@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces.Services.Campeonato;
-using Domain.Interfaces.Services.Partida;
 using Domain.Interfaces.Services.Time;
 using Microsoft.Extensions.DependencyInjection;
 using Service.Services;
@@ -16,7 +15,6 @@ namespace CrossCutting.DependencyInjection
         public static void ConfigureDependeciesService(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITimeService, TimeService> ();
-            serviceCollection.AddTransient<IPartidaService, PartidaService>();
             serviceCollection.AddTransient<ICampeonatoService, CampeonatoService>();
         }
     }

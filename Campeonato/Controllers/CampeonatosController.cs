@@ -1,10 +1,6 @@
-﻿using Domain.Interfaces.Services.Campeonato;
-using Microsoft.AspNetCore.Http;
+﻿using Domain.Dtos;
+using Domain.Interfaces.Services.Campeonato;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Application.Controllers
@@ -19,31 +15,16 @@ namespace Application.Controllers
             _campeonatoService = service;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> GetAll()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    try
-        //    {
-        //        return Ok(await _campeonatoService.GetAll());
-        //    }
-        //    catch (ArgumentException e)
-        //    {
-        //        return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-        //    }
-        //}
-
         [HttpGet]
         public async Task<ActionResult> ObterCampeonato()
         {
             var result = await _campeonatoService.ObterCampeonato();
             if (result is null)
             {
-                return BadRequest();
+                var error = new CampeonatoErrorDto();
+                error.Message = "É obrigatório a presença de ao menos 3 times.";
+                error.type = "Regra de negócio.";
+                return BadRequest(error);
             }
 
             return Ok(result);

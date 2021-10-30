@@ -25,22 +25,5 @@ namespace Domain.Models
             set { _nome = value; }
         }
 
-        private ICollection<PartidaEntity> _timesA;
-
-        public ICollection<PartidaEntity> TimesA 
-        {
-            get { return _timesA; }
-            set { _timesA = value; }
-        }
-        
-        private ICollection<PartidaEntity> _timesB;
-
-        public ICollection<PartidaEntity> TimesB 
-        {
-            get { return _timesB; }
-            set { _timesB = value; }
-        }
-
-
     }
 }

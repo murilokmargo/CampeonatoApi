@@ -15,9 +15,6 @@ namespace Data.Mapping
             builder.HasIndex(t => t.Nome).IsUnique();
 
             builder.Property(t => t.Nome).IsRequired();
-
-            builder.HasMany(t => t.TimesA).WithOne(p => p.TimeA).HasForeignKey(p => p.TimeAId).HasPrincipalKey(t => t.Id);
-            builder.HasMany(t => t.TimesB).WithOne(p => p.TimeB).HasForeignKey(p => p.TimeBId).HasPrincipalKey(t => t.Id).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

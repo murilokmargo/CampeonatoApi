@@ -7,8 +7,6 @@ namespace Data.Context
     public class MyContext : DbContext
     {
         public DbSet<TimeEntity> Times { get; set; }
-        public DbSet<PartidaEntity> Partidas { get; set; }
-        public DbSet<CampeonatoEntity> Campeonatos { get; set; }
 
         public MyContext( DbContextOptions<MyContext> options) : base(options) { }
 
@@ -17,8 +15,6 @@ namespace Data.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TimeEntity>(new TimeMap().Configure);
-            modelBuilder.Entity<PartidaEntity>(new PartidaMap().Configure);
-            modelBuilder.Entity<CampeonatoEntity>(new CampeonatoMap().Configure);
         }
     }
 }

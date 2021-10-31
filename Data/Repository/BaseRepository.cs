@@ -144,5 +144,10 @@ namespace Data.Repository
         {
             return await _datasetTime.AnyAsync(p => p.Nome.Equals(name));
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await  _datasetTime.CountAsync();
+        }
     }
 }

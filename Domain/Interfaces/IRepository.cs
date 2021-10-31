@@ -18,5 +18,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<T>> GetAll();
 
         Task<bool> HasTimeByName(string name);
+
+        Task<int> CountAsync();
     }
 }

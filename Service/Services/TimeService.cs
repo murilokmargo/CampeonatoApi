@@ -37,8 +37,9 @@ namespace Service.Services
         {
            
             var listEntity = await _repository.SelectAsync(filter);
+            var dataQuantity = await _repository.CountAsync();
             var data = _mapper.Map<IEnumerable<TimeDTOCreateResult>>(listEntity);
-            var result = new TimesPaginated(data, filter.PageNumber, filter.PageSize);
+            var result = new TimesPaginated(data, dataQuantity, filter.PageNumber, filter.PageSize);
 
             return result;
         }

@@ -19,7 +19,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
             if (!ModelState.IsValid)
             {
@@ -28,7 +28,8 @@ namespace Application.Controllers
 
             try
             {
-                return Ok(await _timeService.GetAll());
+                var response = await _timeService.GetAll(filter);
+                return Ok(response);
             }
             catch (ArgumentException e)
             {
@@ -48,7 +49,8 @@ namespace Application.Controllers
 
             try
             {
-                return Ok(await _timeService.Get(id));
+                var response = await _timeService.Get(id);
+                return Ok(new TimeDtoById(response));
             }
             catch (ArgumentException e)
             {
@@ -56,7 +58,7 @@ namespace Application.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost]  
         public async Task<ActionResult> Post([FromBody] TimeDtoCreate time)
         {
             if (!ModelState.IsValid)
@@ -73,7 +75,10 @@ namespace Application.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    var error = new ResponseErrorDto();
+                    error.Message = "Não é possível ter mais de um time com o mesmo nome.";
+                    error.type = "Regra de negócio.";
+                    return BadRequest(error);
                 }
 
             }

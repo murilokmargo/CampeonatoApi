@@ -21,7 +21,7 @@ namespace Application.Controllers
             var result = await _campeonatoService.ObterCampeonato();
             if (result is null)
             {
-                var error = new CampeonatoErrorDto();
+                var error = new ResponseErrorDto();
                 error.Message = "É obrigatório a presença de ao menos 3 times.";
                 error.type = "Regra de negócio.";
                 return BadRequest(error);

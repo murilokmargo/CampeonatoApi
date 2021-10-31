@@ -22,7 +22,7 @@ namespace Service.Services
 
         public async Task<CampeonatoDto> ObterCampeonato()
         {
-            var listTimes = await _timeRepository.SelectAsync();
+            var listTimes = await _timeRepository.GetAll();
             if (listTimes.Count() < 3 )
             {
                 return null;

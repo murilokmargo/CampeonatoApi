@@ -33,17 +33,28 @@ namespace Service.Services
             return _mapper.Map<TimeDtoCreate>(entity);
         }
 
-        public async Task<IEnumerable<TimeDTOCreateResult>> GetAll()
+        public async Task<TimesPaginated> GetAll(PaginationFilter filter)
         {
-            var listEntity = await _repository.SelectAsync();
-            return _mapper.Map<IEnumerable<TimeDTOCreateResult>> (listEntity);
+           
+            var listEntity = await _repository.SelectAsync(filter);
+            var data = _mapper.Map<IEnumerable<TimeDTOCreateResult>>(listEntity);
+            var result = new TimesPaginated(data, filter.PageNumber, filter.PageSize);
+
+            return result;
         }
 
         public async Task<TimeDTOCreateResult> Post(TimeDtoCreate time)
         {
+            if (await _repository.HasTimeByName(time.Nome))
+            {
+                return null;
+            }
+            
             var model = _mapper.Map<TimeModel>(time);
             var entity = _mapper.Map<TimeEntity>(model);
             var result = await _repository.InsertAsync(entity);
+
+
 
             return _mapper.Map<TimeDTOCreateResult>(result);
         }

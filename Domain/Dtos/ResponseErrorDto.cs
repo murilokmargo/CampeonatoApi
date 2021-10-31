@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Dtos
 {
-    public class CampeonatoErrorDto
+    public class ResponseErrorDto
     {
-
         public string Message { get; set; }
         public string type { get; set; }
     }

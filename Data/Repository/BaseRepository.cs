@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,14 @@ namespace Data.Repository
     {
         protected readonly MyContext _context;
         private DbSet<T> _dataset;
+        private DbSet<TimeEntity> _datasetTime;
 
         public BaseRepository(MyContext context)
         {
+
             _context = context;
             _dataset = _context.Set<T>();
+            _datasetTime = _context.Set<TimeEntity>();
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -81,11 +85,18 @@ namespace Data.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> SelectAsync()
+        public async Task<IEnumerable<T>> SelectAsync(PaginationFilter filter)
         {
             try
             {
-                return await _dataset.ToListAsync();
+                var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+                var pagedData = await _dataset
+                    .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                    .Take(validFilter.PageSize)
+                    .ToListAsync();
+                var totalRecords = await _dataset.CountAsync();
+
+                return (pagedData);
             }
             catch (Exception)
             {
@@ -112,6 +123,26 @@ namespace Data.Repository
             }
 
             return item;
+        }
+
+        public async Task<IEnumerable<T>> GetAll()
+        {
+            try
+            { 
+                var response = await _dataset.ToListAsync();
+
+                return (response);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> HasTimeByName(string name)
+        {
+            return await _datasetTime.AnyAsync(p => p.Nome.Equals(name));
         }
     }
 }
